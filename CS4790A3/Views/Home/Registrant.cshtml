@@ -1,0 +1,126 @@
+﻿@model CS4790A3.Models.ViewModel
+
+@{
+    ViewBag.Title = "Registrant";
+}
+<div class="row">
+    <div class="col-md-6">
+        <h2>View</h2>
+
+        <div>
+            <h4>Registrant</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contact.FirstName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Contact.FirstName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contact.LastName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Contact.LastName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contact.suffix)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Contact.suffix)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contact.phone)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Contact.phone)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contact.email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Contact.email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contact.T_shirt)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Contact.T_shirt)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contact.e_contact)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Contact.e_contact)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contact.e_phone)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Contact.e_phone)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Back to List", "Registrants")
+        </p>
+    </div>
+    <div class="col-md-6">
+        <h2>Runners</h2>
+        <p>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Runners[0].firstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Runners[0].lastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Runners[0].tShirt)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Runners)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.firstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.lastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tShirt)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Details", "View", new { id = item.contactID })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </p>
+        <p>
+
+        </p>
+    </div>
+</div>

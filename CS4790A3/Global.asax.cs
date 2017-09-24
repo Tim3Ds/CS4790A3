@@ -18,7 +18,7 @@ namespace CS4790A3
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Database.SetInitializer<RunnersDB>(null);
+            Database.SetInitializer<RunnersDBContext>(null);
         }
     }
 }

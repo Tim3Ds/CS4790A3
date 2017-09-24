@@ -7,46 +7,84 @@ namespace CS4790A3.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Collections.Generic;
 
-    public partial class RunnersDB : DbContext
+    public class RunnersDB
     {
-        public RunnersDB()
-            : base("name=RunnersDB")
+        public static List<Contacts> getAllContacts()
         {
+            RunnersDBContext db = new RunnersDBContext();
+            return db.Contacts.ToList();
         }
 
-        public virtual DbSet<contact> contacts { get; set; }
-        public virtual DbSet<runner> Runners { get; set; }
+        public static List<Runners> getAllRunners()
+        {
+            RunnersDBContext db = new RunnersDBContext();
+            return db.Runners.ToList();
+        }
 
-        
+        public static ViewModel getView(int? id)
+        {
+            RunnersDBContext db = new RunnersDBContext();
+            var vm = new ViewModel();
+            vm.Contact = db.Contacts.Find(id);
+            vm.Runners = db.Runners.Where(s => s.contactID.Equals(vm.Contact.Id)).ToList();
+            return vm;
+        }
+
+        public static void addContact(Contacts contact)
+        {
+            RunnersDBContext db = new RunnersDBContext();
+            db.Contacts.Add(contact);
+            db.SaveChanges();
+        }
+
+        public static void addRunner(Runners runner)
+        {
+            RunnersDBContext db = new RunnersDBContext();
+            db.Runners.Add(runner);
+            db.SaveChanges();
+        }
+
+        public static void dispose()
+        {
+            RunnersDBContext db = new RunnersDBContext();
+            db.Dispose();
+        }
+
     }
 
 
-    [Table("contact")]
-    public class contact
+    public class RunnersDBContext : DbContext
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public contact()
-        {
-            Runners = new HashSet<runner>();
-        }
-
+        public virtual DbSet<Contacts> Contacts { get; set; }
+        public virtual DbSet<Runners> Runners { get; set; }
+    }
+    
+    [Table("contact")]
+    public class Contacts
+    {
+        [Key]
         public int Id { get; set; }
 
+        [Display(Name = "First Name")]
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }
 
+        [Display(Name = "Last Name")]
         [Required]
         [StringLength(50)]
         public string LastName { get; set; }
 
+        [Display(Name = "suffix")]
         [StringLength(50)]
         public string suffix { get; set; }
 
+        [Display(Name = "Phone")]
         [Required]
         [StringLength(10)]
         public string phone { get; set; }
 
+        [Display(Name = "Email")]
         [Required]
         [StringLength(50)]
         public string email { get; set; }
@@ -65,31 +103,34 @@ namespace CS4790A3.Models
         [StringLength(10)]
         public string e_phone { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<runner> Runners { get; set; }
     }
 
-    [Table("Runner")]
-    public class runner
+    [Table("Runners")]
+    public class Runners
     {
+        [Key]
         public int Id { get; set; }
 
         public int contactID { get; set; }
 
-        [Column("First Name")]
+        [Display(Name="First Name")]
         [Required]
         [StringLength(50)]
-        public string First_Name { get; set; }
+        public string firstName { get; set; }
 
-        [Column("Last Name")]
+        [Display(Name = "Last Name")]
         [Required]
         [StringLength(50)]
-        public string Last_Name { get; set; }
-
-        [Column("T-shirt")]
+        public string lastName { get; set; }
+        
         [StringLength(3)]
-        public string T_shirt { get; set; }
+        public string tShirt { get; set; }
 
-        public virtual contact contact { get; set; }
+    }
+
+    public class ViewModel
+    {
+        public Contacts Contact { get; set; }
+        public List<Runners> Runners { get; set; }
     }
 }
