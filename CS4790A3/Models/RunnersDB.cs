@@ -24,8 +24,11 @@ namespace CS4790A3.Models
         public static ViewModel getView(int? id)
         {
             RunnersDBContext db = new RunnersDBContext();
+            var RunnerModel = new Runners();
+            RunnerModel.contactID = id.Value;
             var vm = new ViewModel();
             vm.Contact = db.Contacts.Find(id);
+            vm.RunnersModel = RunnerModel;
             vm.Runners = db.Runners.Where(s => s.contactID.Equals(vm.Contact.Id)).ToList();
             return vm;
         }
@@ -131,6 +134,7 @@ namespace CS4790A3.Models
     public class ViewModel
     {
         public Contacts Contact { get; set; }
+        public Runners RunnersModel { get; set; }
         public List<Runners> Runners { get; set; }
     }
 }

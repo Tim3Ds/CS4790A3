@@ -232,10 +232,6 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\Registrants.cshtml" />
     <Content Include="Views\Home\AddRunner.cshtml" />
-    <Content Include="Views\Runners\Delete.cshtml" />
-    <Content Include="Views\Runners\Details.cshtml" />
-    <Content Include="Views\Runners\Edit.cshtml" />
-    <Content Include="Views\Runners\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
