@@ -35,7 +35,7 @@ namespace CS4790A3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult addContact([Bind(Include = "Id,FirstName,LastName,suffix,phone,email,T_shirt,e_contact,e_phone")] Contacts contact)
+        public ActionResult addContact([Bind(Include = "Id,FirstName,LastName,suffix,phone,email,T_shirt,e_contact,e_phone,emailConfirm,anonymous")] Contacts contact)
         {
             if (ModelState.IsValid)
             {
