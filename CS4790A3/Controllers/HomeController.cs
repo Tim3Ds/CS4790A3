@@ -13,37 +13,15 @@ namespace CS4790A3.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View(repo.getAllRunners());
+            return View(repo.getRegView());
         }
 
-
+        
 
         // GET: Home/Registrants
         public ActionResult Registrants()
         {
             return View(repo.getAllContacts());
-        }
-
-        // GET: Home/Regeter
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        // POST: Contacts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register([Bind(Include = "Id,FirstName,LastName,suffix,phone,email,T_shirt,e_contact,e_phone")] Contacts contact)
-        {
-            if (ModelState.IsValid)
-            {
-                repo.addContact(contact);
-                return RedirectToAction("Registrant", new { id = contact.Id });
-            }
-
-            return View(contact);
         }
 
         // GET: Contacts/Details/5
@@ -57,14 +35,32 @@ namespace CS4790A3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registrant([Bind(Include = "Id,contactID,firstName,lastName,tShirt")] Runners runner)
+        public ActionResult addContact([Bind(Include = "Id,FirstName,LastName,suffix,phone,email,T_shirt,e_contact,e_phone")] Contacts contact)
+        {
+            if (ModelState.IsValid)
+            {
+                repo.addContact(contact);
+                return RedirectToAction("Registrant", new { id = contact.Id });
+            }
+
+            return RedirectToAction("index");
+        }
+
+        // POST: Runners/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult addRunner([Bind(Include = "Id,contactID,firstName,lastName,tShirt")] Runners runner)
         {
             if (ModelState.IsValid)
             {
                 repo.addRunner(runner);
+                return RedirectToAction("Registrant", new { id = runner.contactID });
             }
 
-            return View(repo.getView(runner.contactID));
+            return RedirectToAction("index");
+            
         }
 
 

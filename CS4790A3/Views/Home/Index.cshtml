@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CS4790A3.Models.Runners>
+﻿@model CS4790A3.Models.ViewModel
 
 @{
     ViewBag.Title = "Runner Registration";
@@ -11,43 +11,131 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
-        <h2>Register</h2>
-        <p>@Html.ActionLink("Click Here", "Register")</p>
+    <div class="col-md-7">
+        <p>@Html.Partial("AddContact", new ViewDataDictionary(Model.Contact))</p>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
         <h2>Runners</h2>
         <p>
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.firstName)
+                        @Html.DisplayNameFor(model => model.Runners[0].firstName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.lastName)
+                        @Html.DisplayNameFor(model => model.Runners[0].lastName)
                     </th>
-                    <th></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Runners[0].tShirt)
+                    </th>
                 </tr>
 
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.firstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.lastName)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Details", "Registrant", new { id = item.contactID }) 
-                        </td>
-                    </tr>
-                }
+                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
 
             </table>
 
         </p>
     </div>
     
-    
 </div>
+
+<div class="form-group row">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Create" id="subContact" class="btn btn-default" />
+    </div>
+</div>
+
+<script type="text/javascript">
+    var timeoutHandle;
+    function phoneMask(inputName, evt) {
+        clearTimeout(timeoutHandle);
+        timeoutHandle = setTimeout(() => {
+            try {
+                var text = document.getElementById(inputName);
+                var value = text.value,
+                    first3,
+                    second3,
+                    last4;
+                // console.log(value.length)
+                var split = value.split('-');
+                if (split.length == 1) {
+                    if (value.length == 10) {
+                        first3 = value.substring(0, 3);
+                        second3 = value.substring(3, 6);
+                        last4 = value.substring(6, 10);
+                        // console.log(value, first3, second3, last4)
+
+                        text.value = first3 + '-' + second3 + '-' + last4;
+                    }
+                    if (value.length >= 11) {
+                        var area = value.substring(0, 1);
+                        first3 = value.substring(1, 4);
+                        second3 = value.substring(4, 7);
+                        last4 = value.substring(7, 11);
+                        // console.log(value, first3, second3, last4)
+
+                        text.value = first3 + '-' + second3 + '-' + last4;
+                    }
+                } else {
+                    // console.log(split,split[0].length)
+                    if (split[0].length > 3) {
+                        // console.log(split[0])
+                        split[0] = split[0].substring(0, 3);
+                    }
+                    if (split[1].length > 3) {
+                        // console.log(split[1])
+                        split[1] = split[1].substring(0, 3);
+
+                    }
+                    if (split[2].length > 3) {
+                        // console.log(split[2])
+                        split[2] = split[2].substring(0, 4);
+
+                    }
+                    if (split[0].length >= 3 && split[1].length >= 3 && split[2].length >= 4) {
+                        text.value = split[0] + '-' + split[1] + '-' + split[2];
+                    }
+                }
+
+            } catch (e) { }
+        }, 300);
+
+    }
+
+    $(function () {
+        console.log('this regScript');// show script has ran
+        $('#subContact').on('click', function () {
+
+            var $contactForm = $('#contact').find('form');
+
+            if ($contactForm.valid()) {
+                $contactForm.submit();
+
+                $('.runner').each(function () {
+
+                    var $nameFirst = $(this).find($('.first'))
+                    var $nameLast = $(this).find($('.last'))
+
+                    if ($nameFirst.val() != null && $nameLast != null) {
+
+                        console.log('addRunner', this);
+                        var $runnerForm = $(this).find('form');
+                        if($runnerForm.valid()){
+                            $runnerForm.submit();
+                        }
+
+                    }
+                });
+            }
+        });
+    });
+</script>

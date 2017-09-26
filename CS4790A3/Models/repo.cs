@@ -17,9 +17,24 @@ namespace CS4790A3.Models
             return RunnersDB.getAllRunners();
         }
 
+        public static ViewModel getRegView()
+        {
+            ViewModel vm = new ViewModel();
+            vm.Contact = new Contacts();
+            vm.RunnersModel = new Runners();
+            vm.RunnersModel.contactID = RunnersDB.getLastContactId();
+            return vm;
+        }
+
         public static ViewModel getView(int? id)
         {
-            return RunnersDB.getView(id);
+            Runners Runner = new Runners();
+            Runner.contactID = id.Value;
+            ViewModel vm = new ViewModel();
+            vm.Contact = RunnersDB.getContact(id);
+            vm.RunnersModel = Runner;
+            vm.Runners = RunnersDB.getRunners(id);
+            return vm;
         }
 
         public static void addContact(Contacts contact)

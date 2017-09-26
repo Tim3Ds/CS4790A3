@@ -1,32 +1,60 @@
 ﻿@model CS4790A3.Models.Runners
 
+<tr class="runner">
+    @using (Html.BeginForm("addRunner","Home"))
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
-    <tr class="form-inline">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+
         @Html.HiddenFor(model => model.contactID)
-        
+
         <td>
-            @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control first" } })
             @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
         </td>
-        
         <td>
-            @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control last" } })
             @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
         </td>
         <td>
             @Html.EditorFor(model => model.tShirt, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.tShirt, "", new { @class = "text-danger" })
         </td>
-        <td>
-            <input type="submit" value="Add" class="btn btn-default" />
-        </td>
-    </tr>
-}
+    }
+</tr>
 
 
+
+
+@*<tr id="runner1">
+    @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+</tr>
+<tr id="runner2">
+    @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+</tr>
+<tr id="runner3">
+    @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+</tr>
+<tr id="runner4">
+    @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+</tr>
+<tr id="runner5">
+    @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+</tr>
+<tr id="runner6">
+    @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+</tr>
+<tr id="runner7">
+    @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+</tr>
+<tr id="runner8">
+    @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+</tr>
+<tr id="runner9">
+    @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+</tr>
+<tr id="runner10">
+    @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+</tr>*@
