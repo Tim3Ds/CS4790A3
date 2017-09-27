@@ -37,7 +37,7 @@ namespace CS4790A3.Models
         public static List<Runners> getRunners(int? id)
         {
             RunnersDBContext db = new RunnersDBContext();
-            return db.Runners.Where(s => s.contactID.Equals(id)).ToList();
+            return db.Runners.Where(Runners => Runners.contactID == id).ToList();
         }
 
         public static void addContact(Contacts contact)

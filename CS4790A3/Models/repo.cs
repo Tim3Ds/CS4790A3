@@ -28,10 +28,11 @@ namespace CS4790A3.Models
 
         public static ViewModel getView(int? id)
         {
-            Runners Runner = new Runners();
-            Runner.contactID = id.Value;
+            
             ViewModel vm = new ViewModel();
             vm.Contact = RunnersDB.getContact(id);
+            Runners Runner = new Runners();
+            Runner.contactID = vm.Contact.Id;
             vm.RunnersModel = Runner;
             vm.Runners = RunnersDB.getRunners(id);
             return vm;

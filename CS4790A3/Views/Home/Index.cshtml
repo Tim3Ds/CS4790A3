@@ -119,7 +119,30 @@
 
             if ($contactForm.valid()) {
                 $contactForm.submit();
+                //var data = {
+                //    __RequestVerificationToken: $runnerForm.find('input[name="__RequestVerificationToken"]').val(),
+                //    contactID: $runnerForm.find('input[name="contactID"]').val(),
+                //    FirstName: $runnerForm.find('input[name="FirstName"]').val(),
+                //    LastName: $runnerForm.find('input[name="LastName"]').val(),
+                //    suffix: $runnerForm.find('input[name="suffix"]').val(),
+                //    phone: $runnerForm.find('input[name="phone"]').val(),
+                //    email: $runnerForm.find('input[name="email"]').val(),
+                //    T_shirt: $runnerForm.find('input[name="T_shirt"]').val(),
+                //    e_contact: $runnerForm.find('input[name="e_contact"]').val(),
+                //    e_phone: $runnerForm.find('input[name="e_phone"]').val(),
+                //    emailConfirm: $runnerForm.find('input[name="emailConfirm"]').val(),
+                //    anonymous: $runnerForm.find('input[name="anonymous"]').val(),
+                //}
+                //$.ajax({
+                //    url: "/Home/AddContact",
+                //    data: data,
+                //    type: "POST",
+                //    success: function (data) {
+                //        console.log(data);
+                //    }
+                //});
 
+                window.location.href = '/Home/Registrant/' + $('.runner').find('input[name="contactID"]').val();
                 $('.runner').each(function () {
 
                     var $nameFirst = $(this).find($('.first'))
@@ -127,14 +150,30 @@
 
                     if ($nameFirst.val() != null && $nameLast != null) {
 
-                        console.log('addRunner', this);
                         var $runnerForm = $(this).find('form');
-                        if($runnerForm.valid()){
-                            //$runnerForm.submit();
+                        if ($runnerForm.valid()) {
+                            $runnerForm.submit();
+                            //var data = {
+                            //    __RequestVerificationToken: $runnerForm.find('input[name="__RequestVerificationToken"]').val(),
+                            //    contactID: $runnerForm.find('input[name="contactID"]').val(),
+                            //    firstName: $runnerForm.find('input[name="firstName"]').val(),
+                            //    lastName: $runnerForm.find('input[name="lastName"]').val(),
+                            //    tShirt: $runnerForm.find('input[name="tShirt"]').val(),
+                            //}
+                            //$.ajax({
+                            //    url: "/Home/AddRunner",
+                            //    data: data,
+                            //    type: "POST",
+                            //    success: function (data) {
+                            //        console.log(data);
+                            //    }
+                            //});
                         }
 
                     }
                 });
+
+                
             }
         });
     });

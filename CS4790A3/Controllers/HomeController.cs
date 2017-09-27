@@ -40,10 +40,10 @@ namespace CS4790A3.Controllers
             if (ModelState.IsValid)
             {
                 repo.addContact(contact);
-                return RedirectToAction("Registrant", new { id = contact.Id });
+                return Content("Success");
             }
 
-            return RedirectToAction("index");
+            return Content("Fail");
         }
 
         // POST: Runners/Create
@@ -56,10 +56,10 @@ namespace CS4790A3.Controllers
             if (ModelState.IsValid)
             {
                 repo.addRunner(runner);
-                return RedirectToAction("Registrant", new { id = runner.contactID });
+                return Content("Success");
             }
 
-            return RedirectToAction("index");
+            return Content("Fail");
             
         }
 
