@@ -15,8 +15,31 @@ namespace CS4790A3.Controllers
         {
             return View(repo.getRegView());
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(RegModel registration)
+        {
+            if (ModelState.IsValid)
+            {
+                repo.addContact(registration.Contact);
+                addRunners(registration.Runners);
+                return RedirectToAction("Registrants");
+            }
 
-        
+            return View();
+
+        }
+
+        public void addRunners(List<Runners> runners)
+        {
+            foreach(var runner in runners)
+            {
+                if (runner.firstName != null && runner.lastName != null)
+                {
+                    repo.addRunner(runner);
+                }
+            }
+        }
 
         // GET: Home/Registrants
         public ActionResult Registrants()
@@ -30,38 +53,21 @@ namespace CS4790A3.Controllers
             return View(repo.getView(id));
         }
 
-        // POST: Contacts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult addContact([Bind(Include = "Id,FirstName,LastName,suffix,phone,email,T_shirt,e_contact,e_phone,emailConfirm,anonymous")] Contacts contact)
-        {
-            if (ModelState.IsValid)
-            {
-                repo.addContact(contact);
-                return Content("Success");
-            }
-
-            return Content("Fail");
-        }
-
-        // POST: Runners/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult addRunner([Bind(Include = "Id,contactID,firstName,lastName,tShirt")] Runners runner)
+        public ActionResult Registrant(Runners runner)
         {
             if (ModelState.IsValid)
             {
                 repo.addRunner(runner);
-                return Content("Success");
+                return View(repo.getView(runner.contactID));
             }
 
-            return Content("Fail");
-            
+            return View("Index");
+
         }
+
 
 
 

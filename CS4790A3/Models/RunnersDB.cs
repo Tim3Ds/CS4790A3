@@ -18,7 +18,7 @@ namespace CS4790A3.Models
         public static int getLastContactId()
         {
             RunnersDBContext db = new RunnersDBContext();
-            int maxID = db.Contacts.Select(p => p.Id).DefaultIfEmpty(1).Max();
+            int maxID = db.Contacts.Select(p => p.Id).DefaultIfEmpty(0).Max()+1;
             return maxID;
         }
 
@@ -105,12 +105,7 @@ namespace CS4790A3.Models
         [StringLength(50, MinimumLength = 3)]
         [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Please enter a valid Email.")]
         public string email { get; set; }
-
-        [Display(Name = "Confirm Email")]
-        [Compare("email", ErrorMessage = "The Email and confirmation Email do not match.")]
-        [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Please enter a valid Email.")]
-        public string emailConfirm { get; set; }
-
+        
         [Display(Name = "T-shirt Size")]
         [Column("T-shirt")]
         [StringLength(3, MinimumLength = 1)]
@@ -140,18 +135,13 @@ namespace CS4790A3.Models
 
         public int contactID { get; set; }
 
-        [Display(Name="First Name")]
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
-        [RegularExpression(@"^[a-zA-Z]+(([\'\,\.\-][a-zA-Z])?[a-zA-Z]*)*$", ErrorMessage = "Please enter a valid Name.")]
+        [Display(Name = "First Name")]
         public string firstName { get; set; }
 
         [Display(Name = "Last Name")]
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
-        [RegularExpression(@"^[a-zA-Z]+(([\'\,\.\-][a-zA-Z])?[a-zA-Z]*)*$", ErrorMessage = "Please enter a valid Name.")]
         public string lastName { get; set; }
-        
+
+        [Display(Name = "T-Shirt")]
         [StringLength(3)]
         public string tShirt { get; set; }
 
@@ -160,7 +150,16 @@ namespace CS4790A3.Models
     public class ViewModel
     {
         public Contacts Contact { get; set; }
-        public Runners RunnersModel { get; set; }
         public List<Runners> Runners { get; set; }
+    }
+    public class RegModel
+    {
+        public Contacts Contact { get; set; }
+        public List<Runners> Runners { get; set; }
+
+        [Display(Name = "Confirm Email")]
+        //[Compare("Contact.email", ErrorMessage = "The Email and confirmation Email do not match.")]
+        [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Please enter a valid Email.")]
+        public string confirmEmail { get; set; }
     }
 }

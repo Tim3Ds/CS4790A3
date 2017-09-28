@@ -1,4 +1,4 @@
-﻿@model CS4790A3.Models.ViewModel
+﻿@model CS4790A3.Models.RegModel
 
 @{
     ViewBag.Title = "Runner Registration";
@@ -9,50 +9,161 @@
     <p class="lead">Register for 5K Run</p>
     <p></p>
 </div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-7">
+            <p>
+            
 
-<div class="row">
-    <div class="col-md-7">
-        <p>@Html.Partial("AddContact", new ViewDataDictionary(Model.Contact))</p>
-    </div>
-    <div class="col-md-5">
-        <h2>Runners</h2>
-        <p>
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Runners[0].firstName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Runners[0].lastName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Runners[0].tShirt)
-                    </th>
-                </tr>
+                    <div class="form-horizontal">
+                        <h4>Registrant</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Contact.Id)
 
-                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
-                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
-                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
-                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
-                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
-                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
-                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
-                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
-                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
-                @Html.Partial("AddRunner", new ViewDataDictionary(Model.RunnersModel))
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Contact.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Contact.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Contact.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-            </table>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Contact.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Contact.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Contact.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        </p>
-    </div>
+                        <div class="form-group" >
+                            @Html.LabelFor(model => model.Contact.suffix, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <span style="display: inline-block; max-width: 110px;">
+                                    @Html.EditorFor(model => model.Contact.suffix, new { htmlAttributes = new { @class = "form-control" } })
+                                </span>
+                                @Html.ValidationMessageFor(model => model.Contact.suffix, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Contact.anonymous, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <div class="checkbox">
+                                    <span style="margin-left: 20px;">
+                                        @Html.EditorFor(model => model.Contact.anonymous)
+                                    </span>
+                                    @Html.ValidationMessageFor(model => model.Contact.anonymous, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Contact.phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Contact.phone, new { htmlAttributes = new { @class = "form-control", onkeyup = "phoneMask('Contact.phone', event)" } })
+                                @Html.ValidationMessageFor(model => model.Contact.phone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Contact.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Contact.email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Contact.email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.confirmEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.confirmEmail, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.confirmEmail, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Contact.T_shirt, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <span style="display: inline-block; max-width: 80px;">
+                                    @Html.EditorFor(model => model.Contact.T_shirt, new { htmlAttributes = new { @class = "form-control" } })
+                                </span>
+                                @Html.ValidationMessageFor(model => model.Contact.T_shirt, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Contact.e_contact, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Contact.e_contact, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Contact.e_contact, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Contact.e_phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Contact.e_phone, new { htmlAttributes = new { @class = "form-control", onkeyup = "phoneMask('Contact.e_phone', event)" } })
+                                @Html.ValidationMessageFor(model => model.Contact.e_phone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    
+                    </div>
+            
+            </p>
+        </div>
+        <div class="col-md-5">
+            <h2>Runners</h2>
+            <p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Runners[0].firstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Runners[0].lastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Runners[0].tShirt)
+                        </th>
+                    </tr>
+                    @for(var dex = 0; dex<10; dex++)
+                    {   
+                        
+                        <tr>
+                            <td>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.Runners[@dex].Id)
+                                @Html.HiddenFor(model => model.Runners[@dex].contactID)
+                                @Html.EditorFor(model => model.Runners[@dex].firstName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Runners[@dex].firstName, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.Runners[@dex].lastName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Runners[@dex].lastName, "", new { @class = "text-danger" })
+                            </td>
+                            <td style="display: inline-block; max-width: 80px;">
+                                @Html.EditorFor(model => model.Runners[@dex].tShirt, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Runners[@dex].tShirt, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </p>
+        </div>
     
-</div>
-
-<div class="form-group row">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Create" id="subContact" class="btn btn-default" />
     </div>
-</div>
+    <div class=" row">
+        <div class="col-md-offset-1 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+}
 
 <script type="text/javascript">
     var timeoutHandle;
@@ -110,71 +221,6 @@
         }, 300);
 
     }
-
-    $(function () {
-        console.log('this regScript');// show script has ran
-        $('#subContact').on('click', function () {
-
-            var $contactForm = $('#contact').find('form');
-
-            if ($contactForm.valid()) {
-                $contactForm.submit();
-                //var data = {
-                //    __RequestVerificationToken: $runnerForm.find('input[name="__RequestVerificationToken"]').val(),
-                //    contactID: $runnerForm.find('input[name="contactID"]').val(),
-                //    FirstName: $runnerForm.find('input[name="FirstName"]').val(),
-                //    LastName: $runnerForm.find('input[name="LastName"]').val(),
-                //    suffix: $runnerForm.find('input[name="suffix"]').val(),
-                //    phone: $runnerForm.find('input[name="phone"]').val(),
-                //    email: $runnerForm.find('input[name="email"]').val(),
-                //    T_shirt: $runnerForm.find('input[name="T_shirt"]').val(),
-                //    e_contact: $runnerForm.find('input[name="e_contact"]').val(),
-                //    e_phone: $runnerForm.find('input[name="e_phone"]').val(),
-                //    emailConfirm: $runnerForm.find('input[name="emailConfirm"]').val(),
-                //    anonymous: $runnerForm.find('input[name="anonymous"]').val(),
-                //}
-                //$.ajax({
-                //    url: "/Home/AddContact",
-                //    data: data,
-                //    type: "POST",
-                //    success: function (data) {
-                //        console.log(data);
-                //    }
-                //});
-
-                window.location.href = '/Home/Registrant/' + $('.runner').find('input[name="contactID"]').val();
-                $('.runner').each(function () {
-
-                    var $nameFirst = $(this).find($('.first'))
-                    var $nameLast = $(this).find($('.last'))
-
-                    if ($nameFirst.val() != null && $nameLast != null) {
-
-                        var $runnerForm = $(this).find('form');
-                        if ($runnerForm.valid()) {
-                            $runnerForm.submit();
-                            //var data = {
-                            //    __RequestVerificationToken: $runnerForm.find('input[name="__RequestVerificationToken"]').val(),
-                            //    contactID: $runnerForm.find('input[name="contactID"]').val(),
-                            //    firstName: $runnerForm.find('input[name="firstName"]').val(),
-                            //    lastName: $runnerForm.find('input[name="lastName"]').val(),
-                            //    tShirt: $runnerForm.find('input[name="tShirt"]').val(),
-                            //}
-                            //$.ajax({
-                            //    url: "/Home/AddRunner",
-                            //    data: data,
-                            //    type: "POST",
-                            //    success: function (data) {
-                            //        console.log(data);
-                            //    }
-                            //});
-                        }
-
-                    }
-                });
-
-                
-            }
-        });
-    });
+    console.log("test", $(document));
+    
 </script>

@@ -17,23 +17,31 @@ namespace CS4790A3.Models
             return RunnersDB.getAllRunners();
         }
 
-        public static ViewModel getRegView()
+        public static RegModel getRegView()
         {
-            ViewModel vm = new ViewModel();
+            RegModel vm = new RegModel();
             vm.Contact = new Contacts();
-            vm.RunnersModel = new Runners();
-            vm.RunnersModel.contactID = RunnersDB.getLastContactId();
+            vm.Contact.Id = RunnersDB.getLastContactId();
+            vm.Contact.FirstName = "Tim";
+            vm.Contact.LastName = "Kelly";
+            vm.Contact.phone = "801-719-4380";
+            vm.Contact.email = "T@K.com";
+            vm.confirmEmail = "T@K.com";
+            var tenRunners = new List<Runners>();
+            for (int dex = 0; dex < 10; dex++)
+            {
+                var runner = new Runners();
+                runner.contactID = vm.Contact.Id;
+                tenRunners.Add(runner);
+            }
+            vm.Runners = tenRunners;
             return vm;
         }
 
         public static ViewModel getView(int? id)
         {
-            
             ViewModel vm = new ViewModel();
             vm.Contact = RunnersDB.getContact(id);
-            Runners Runner = new Runners();
-            Runner.contactID = vm.Contact.Id;
-            vm.RunnersModel = Runner;
             vm.Runners = RunnersDB.getRunners(id);
             return vm;
         }
