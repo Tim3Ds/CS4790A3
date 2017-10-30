@@ -75,13 +75,13 @@ namespace CS4790A3.Models
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "First Name")]
+        [Display(Name = "First Name*")]
         [Required]
         [StringLength(50, MinimumLength = 3)]
         [RegularExpression(@"^[a-zA-Z]+(([\'\,\.\-][a-zA-Z])?[a-zA-Z]*)*$", ErrorMessage = "Please enter a valid Name.")]
         public string FirstName { get; set; }
 
-        [Display(Name = "Last Name")]
+        [Display(Name = "Last Name*")]
         [Required]
         [StringLength(50, MinimumLength = 3)]
         [RegularExpression(@"^[a-zA-Z]+(([\'\,\.\-][a-zA-Z])?[a-zA-Z]*)*$", ErrorMessage = "Please enter a valid Name.")]
@@ -94,13 +94,13 @@ namespace CS4790A3.Models
         [Display(Name = "Anonymus")]
         public Boolean anonymous { get; set; }
 
-        [Display(Name = "Phone")]
+        [Display(Name = "Phone*")]
         [Required]
         [StringLength(13, MinimumLength = 12)]
         [RegularExpression(@"^[2-9]\d{2}-\d{3}-\d{4}$", ErrorMessage = "Please enter a valid Phone #.")]
         public string phone { get; set; }
 
-        [Display(Name = "Email")]
+        [Display(Name = "Email*")]
         [Required]
         [StringLength(50, MinimumLength = 3)]
         [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Please enter a valid Email.")]
@@ -111,14 +111,14 @@ namespace CS4790A3.Models
         [StringLength(3, MinimumLength = 1)]
         public string T_shirt { get; set; }
 
-        [Display(Name = "Emergincy Contact")]
+        [Display(Name = "Emergincy Contact*")]
         [Column("e-contact")]
         [Required]
         [StringLength(50, MinimumLength = 3)]
         [RegularExpression(@"^[a-zA-Z]+(([\'\,\.\-][a-zA-Z])?[a-zA-Z]*)*$", ErrorMessage = "Please enter a valid Name.")]
         public string e_contact { get; set; }
 
-        [Display(Name = "Emergincy Phone")]
+        [Display(Name = "Emergincy Phone*")]
         [Column("e-phone")]
         [Required]
         [StringLength(13, MinimumLength = 12)]
@@ -157,7 +157,7 @@ namespace CS4790A3.Models
         public Contacts Contact { get; set; }
         public List<Runners> Runners { get; set; }
 
-        [Display(Name = "Confirm Email")]
+        [Display(Name = "Confirm Email*")]
         //[Compare("Contact.email", ErrorMessage = "The Email and confirmation Email do not match.")]
         [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Please enter a valid Email.")]
         public string confirmEmail { get; set; }
